@@ -35,5 +35,5 @@ new KG\StaticBundle\KGStaticBundle(),
 Basic usage
 -----------
 ```twig
-{{ file('@AcmeDemoBundle/Static/hello.txt') }}
+{{ file(asset('imagen.jpeg')) }}
 ```
