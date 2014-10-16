@@ -3,6 +3,7 @@
 namespace KG\StaticBundle\Twig;
 
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\DependencyInjection\Container;
 
 class StaticExtension extends \Twig_Extension
 {
@@ -10,9 +11,11 @@ class StaticExtension extends \Twig_Extension
      * @var KernelInterface
      */
     protected $kernel;
+    protected $container;
 
-    public function __construct(KernelInterface $kernel) {
-        $this->kernel = $kernel;
+    public function __construct(KernelInterface $kernel, Container $container = null) {
+        $this->kernel    = $kernel;
+        $this->container = $container;
     }
 
     /**
@@ -32,13 +35,25 @@ class StaticExtension extends \Twig_Extension
      *
      * @return string         The contents of a file.
      */
-    public function file($path)
+    public function file($path, $filter)
     {
-        // $path = $this->kernel->locateResource($path, null, true);
+        $extension = substr(pathinfo($path, PATHINFO_EXTENSION), 0, 3);
+        $src = $this->container->get('templating.helper.assets')->getUrl($path);
+        $avalancheService = $this->container->get('imagine.cache.path.resolver');
+        $src = $avalancheService->getBrowserPath(
+            $src,
+            $filter
+        );
+        $cacheManager = $this->container->get('imagine.cache.manager');
+        $cacheManager->cacheImage(
+            $this->container->get('request')->getBaseUrl(),
+            $path,
+            $filter
+        );
         $reemplazar = array("/app_dev.php");
-        $path = str_replace($reemplazar, "", $path);
+        $src = str_replace($reemplazar, "", $src);
 
-        return "data:image/jpg;base64,".base64_encode(file_get_contents(".".$path));
+        return "data:image/$extension;base64,".base64_encode(file_get_contents(".".$src));
     }
 
     public function getName()

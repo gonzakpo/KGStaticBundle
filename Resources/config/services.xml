@@ -12,6 +12,7 @@
     	<service id="kg_static.extension.static" class="%kg_static.extension.static.class%">
     		<tag name="twig.extension" />
     		<argument type="service" id="kernel" />
+            <argument type="service" id="service_container" />
     	</service>
     </services>
     
