@@ -1,0 +1,27 @@
+{
+    "name": "kg/static",
+    "description": "This bundle makes it possible to load static content from Symfony bundles",
+    "keywords": ["static", "content", "file"],
+    "homepage": "https://github.com/gonzakpo/KGStaticBundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gonzalo Alonso",
+            "email": "gonkpo@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "~2.3"
+    },
+    "autoload": {
+        "psr-0": {"KG\\StaticBundle": ""}
+    },
+    "target-dir": "KG/StaticBundle",
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.3.x-dev"
+        }
+    }
+}
