@@ -38,7 +38,7 @@ class StaticExtension extends \Twig_Extension
         $reemplazar = array("/app_dev.php");
         $path = str_replace($reemplazar, "", $path);
 
-        return "data:image/jpeg;base64,".base64_encode(file_get_contents(".".$path));
+        return "data:image/jpg;base64,".base64_encode(file_get_contents(".".$path));
     }
 
     public function getName()
