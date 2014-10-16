@@ -34,9 +34,11 @@ class StaticExtension extends \Twig_Extension
      */
     public function file($path)
     {
-        $path = $this->kernel->locateResource($path, null, true);
+        // $path = $this->kernel->locateResource($path, null, true);
+        $reemplazar = array("/app_dev.php");
+        $path = str_replace($reemplazar, "", $path);
 
-        return file_get_contents($path);
+        return "data:image/jpeg;base64,".base64_encode(file_get_contents(".".$path));
     }
 
     public function getName()
